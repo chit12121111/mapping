@@ -1,0 +1,25 @@
+services:
+  # Main application (Streamlit GUI)
+  app:
+    build: .
+    container_name: maps-email-scraper
+    ports:
+      - "8501:8501"
+    volumes:
+      # Mount โฟลเดอร์ปัจจุบันเพื่อเก็บ database และไฟล์ข้อมูล
+      - .:/app
+      - ./data:/app/data
+      # อนุญาตให้ container เข้าถึง Docker socket สำหรับรัน Stage 1
+      # สำหรับ Windows: ใช้ //var/run/docker.sock
+      # สำหรับ Linux/Mac: ใช้ /var/run/docker.sock
+      - //var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+    # env_file:
+    #   - .env  # Optional: สร้างไฟล์ .env เองถ้าต้องการ
+    restart: unless-stopped
+    command: streamlit run gui_app.py --server.port=8501 --server.address=0.0.0.0
+
+  # Optional: Service สำหรับรัน Stage 1 (Google Maps Scraper) แยก
+  # ใช้ image จาก gosom/google-maps-scraper
+  # สามารถรันผ่าน GUI หรือ command line ได้

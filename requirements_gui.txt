@@ -1,0 +1,25 @@
+# Stage 3: GUI Dependencies
+# ติดตั้ง: pip install -r requirements_gui.txt
+
+# Streamlit
+streamlit>=1.28.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# Data handling
+pandas>=2.0.0
+
+# AI Keyword Generator
+google-generativeai>=0.8.0
+
+# Google OAuth + Gmail API (เข้าสู่ระบบด้วย Google เลือกบัญชี)
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.100.0
+
+# Google Maps Scraper (Playwright-based)
+playwright>=1.40.0
+
+# Include Stage 2 dependencies
+-r requirements_stage2.txt
